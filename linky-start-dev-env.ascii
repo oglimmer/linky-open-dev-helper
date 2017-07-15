@@ -1,0 +1,52 @@
+on createNewTab()
+  tell application "iTerm"
+    try
+      tell current window
+        create tab with default profile
+        set currentSession to current session
+      end tell
+    on error
+      set newWindow to (create window with default profile)
+      tell newWindow
+        set currentSession to current session
+      end tell
+    end try
+  end tell
+  return currentSession
+end createNewTab
+
+
+set sessionOnNewTab to createNewTab()
+tell application "iTerm"
+  tell sessionOnNewTab
+    write text "couchdb"
+  end tell
+end tell
+
+set sessionOnNewTab to createNewTab()
+tell application "iTerm"
+  tell sessionOnNewTab
+    write text "sudo haproxy -d -f /etc/haproxy/haproxy.cfg"
+  end tell
+end tell
+
+set sessionOnNewTab to createNewTab()
+tell application "iTerm"
+  tell sessionOnNewTab
+    write text "cd ~/dev/repos/linky; export LINKY_PROPERTIES=/Volumes/OSX-Data/AltUsers/oli/dev/server/ansible/roles/linky/files/etc/linky.properties; export DEBUG_MODE=web; yarn run dev"
+  end tell
+end tell
+
+set sessionOnNewTab to createNewTab()
+tell application "iTerm"
+  tell sessionOnNewTab
+    write text "cd ~/dev/repos/linky; export LINKY_PROPERTIES=/Volumes/OSX-Data/AltUsers/oli/dev/server/ansible/roles/linky/files/etc/linky.properties; export DEBUG_MODE=rest; export PORT=8081; yarn nodemon"
+  end tell
+end tell
+
+set sessionOnNewTab to createNewTab()
+tell application "iTerm"
+  tell sessionOnNewTab
+    write text "cd ~/dev/repos/linky; subl /etc/hosts; subl ."
+  end tell
+end tell
